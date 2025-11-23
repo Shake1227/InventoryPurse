@@ -20,12 +20,11 @@ public class InventoryPurse {
     public static final String MOD_ID = "inventorypurse";
     public static final Logger LOGGER = LogManager.getLogger();
 
+    @SuppressWarnings("removal")
     public InventoryPurse() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
-
-        // --- ここでFMLCommonSetupEventをリッスンする ---
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());
@@ -34,7 +33,6 @@ public class InventoryPurse {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "inventorypurse-server.toml");
     }
 
-    // --- commonSetupメソッドでパケットを登録する ---
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(ModPackets::register);
     }

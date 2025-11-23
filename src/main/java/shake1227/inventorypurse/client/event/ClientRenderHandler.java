@@ -8,6 +8,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.common.Mod;
 import shake1227.inventorypurse.InventoryPurse;
 import shake1227.inventorypurse.network.ModPackets;
@@ -17,40 +18,58 @@ import shake1227.inventorypurse.network.server.ServerShiftRightClickPacket;
 @Mod.EventBusSubscriber(modid = InventoryPurse.MOD_ID, value = Dist.CLIENT)
 public class ClientRenderHandler {
 
-    /**
-     * マウスボタンが押された瞬間に呼ばれるイベント。
-     * これを使って不正な操作を未然にキャンセルする。
-     */
-    @SubscribeEvent
-    public static void onMouseClickPre(ScreenEvent.MouseClicked.Pre event) {
+    // ★最優先で実行して、確実にバニラの挙動をキャンセルする
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onMouseClickPre(ScreenEvent.MouseButtonPressed.Pre event) {
         if (!(event.getScreen() instanceof AbstractContainerScreen<?> screen)) return;
 
-        Slot slot = screen.getSlotUnderMouse();
-        // プレーヤーのインベントリ外のスロットは無視
-        if (slot == null || slot.container != screen.getMinecraft().player.getInventory()) return;
-
-        int order = getOrderIndexForSlot(slot.getContainerSlot());
-        int accessibleSlots = ClientLockData.clientAccessibleSlots;
-
-        // A. ロックされたスロットへのあらゆるクリック操作をキャンセルする
-        if (order >= accessibleSlots) {
+        // 1. ロックされたスロットへの操作キャンセル
+        if (cancelEventIfLocked(screen)) {
             event.setCanceled(true);
             return;
         }
 
-        // B. 解放済みスロットでの Shift + 右クリックの特別処理
+        // 2. Shift + 右クリック（MOD独自機能）の完全乗っ取り
         if (event.getButton() == 1 && Screen.hasShiftDown()) { // 1 = 右クリック
-            if (slot.hasItem()) {
-                // デフォルトの動作をキャンセルし、専用パケットをサーバに送信する
-                event.setCanceled(true);
-                ModPackets.sendToServer(new ServerShiftRightClickPacket(slot.getSlotIndex()));
+            // ★重要: アイテムの有無に関わらず、まずイベントをキャンセルしてバニラ動作を封じる
+            event.setCanceled(true);
+
+            Slot slot = screen.getSlotUnderMouse();
+            if (slot != null && slot.hasItem()) {
+                // ★最重要修正: getSlotIndex() ではなく index (コンテナ全体の絶対ID) を送る
+                // これによりサーバー側でのスロット特定ズレを解消する
+                ModPackets.sendToServer(new ServerShiftRightClickPacket(slot.index));
             }
         }
     }
 
-    /**
-     * GUI描画後に呼ばれ、ロックされたスロットを視覚的に隠す。
-     */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onMouseReleasedPre(ScreenEvent.MouseButtonReleased.Pre event) {
+        if (cancelEventIfLocked(event.getScreen())) event.setCanceled(true);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onMouseDragPre(ScreenEvent.MouseDragged.Pre event) {
+        if (cancelEventIfLocked(event.getScreen())) event.setCanceled(true);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onMouseScrollPre(ScreenEvent.MouseScrolled.Pre event) {
+        if (cancelEventIfLocked(event.getScreen())) event.setCanceled(true);
+    }
+
+    private static boolean cancelEventIfLocked(Screen screen) {
+        if (!(screen instanceof AbstractContainerScreen<?> containerScreen)) return false;
+        Slot slot = containerScreen.getSlotUnderMouse();
+        // インベントリ外（チェスト側など）は干渉しない
+        if (slot == null || slot.container != containerScreen.getMinecraft().player.getInventory()) return false;
+
+        int order = getOrderIndexForSlot(slot.getContainerSlot());
+        int accessibleSlots = ClientLockData.clientAccessibleSlots;
+
+        return order >= accessibleSlots;
+    }
+
     @SubscribeEvent
     public static void onScreenRenderPost(ScreenEvent.Render.Post event) {
         if (!(event.getScreen() instanceof AbstractContainerScreen<?> screen)) return;

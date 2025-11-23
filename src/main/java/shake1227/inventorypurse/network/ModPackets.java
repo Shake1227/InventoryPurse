@@ -18,6 +18,7 @@ public class ModPackets {
         return packetId++;
     }
 
+    @SuppressWarnings("removal")
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
                 .named(new ResourceLocation(InventoryPurse.MOD_ID, "messages"))
