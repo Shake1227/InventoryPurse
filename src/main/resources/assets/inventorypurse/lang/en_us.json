@@ -1,0 +1,10 @@
+{
+  "item.inventorypurse.inventory_purse": "Inventory Purse",
+  "item.inventorypurse.red_inventory_purse": "Red Purse",
+  "item.inventorypurse.black_inventory_purse": "Black Purse",
+  "item.inventorypurse.white_inventory_purse": "White Inventory Purse",
+  "creativetab.inventorypurse_tab": "Purse",
+  "commands.inventorypurse.lock.enabled": "Inventory lock has been re-enabled.",
+  "commands.inventorypurse.lock.disabled": "Inventory lock has been disabled for you.",
+  "config.inventorypurse.title": "Inventory Purse Settings"
+}

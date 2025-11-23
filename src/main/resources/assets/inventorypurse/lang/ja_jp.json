@@ -1,0 +1,10 @@
+{
+  "item.inventorypurse.inventory_purse": "巾着",
+  "item.inventorypurse.red_inventory_purse": "赤い巾着",
+  "item.inventorypurse.black_inventory_purse": "黒い巾着",
+  "item.inventorypurse.white_inventory_purse": "白い巾着",
+  "creativetab.inventorypurse_tab": "巾着",
+  "commands.inventorypurse.lock.enabled": "インベントリロックが再度有効になりました。",
+  "commands.inventorypurse.lock.disabled": "あなたのインベントリロックは無効になりました。",
+  "config.inventorypurse.title": "インベントリ巾着 設定"
+}
