@@ -11,35 +11,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.common.Mod;
 import shake1227.inventorypurse.InventoryPurse;
-import shake1227.inventorypurse.network.ModPackets;
 import shake1227.inventorypurse.network.client.ClientLockData;
-import shake1227.inventorypurse.network.server.ServerShiftRightClickPacket;
 
 @Mod.EventBusSubscriber(modid = InventoryPurse.MOD_ID, value = Dist.CLIENT)
 public class ClientRenderHandler {
 
-    // ★最優先で実行して、確実にバニラの挙動をキャンセルする
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onMouseClickPre(ScreenEvent.MouseButtonPressed.Pre event) {
-        if (!(event.getScreen() instanceof AbstractContainerScreen<?> screen)) return;
-
-        // 1. ロックされたスロットへの操作キャンセル
-        if (cancelEventIfLocked(screen)) {
+        if (cancelEventIfLocked(event.getScreen())) {
             event.setCanceled(true);
-            return;
-        }
-
-        // 2. Shift + 右クリック（MOD独自機能）の完全乗っ取り
-        if (event.getButton() == 1 && Screen.hasShiftDown()) { // 1 = 右クリック
-            // ★重要: アイテムの有無に関わらず、まずイベントをキャンセルしてバニラ動作を封じる
-            event.setCanceled(true);
-
-            Slot slot = screen.getSlotUnderMouse();
-            if (slot != null && slot.hasItem()) {
-                // ★最重要修正: getSlotIndex() ではなく index (コンテナ全体の絶対ID) を送る
-                // これによりサーバー側でのスロット特定ズレを解消する
-                ModPackets.sendToServer(new ServerShiftRightClickPacket(slot.index));
-            }
         }
     }
 
@@ -61,7 +41,7 @@ public class ClientRenderHandler {
     private static boolean cancelEventIfLocked(Screen screen) {
         if (!(screen instanceof AbstractContainerScreen<?> containerScreen)) return false;
         Slot slot = containerScreen.getSlotUnderMouse();
-        // インベントリ外（チェスト側など）は干渉しない
+
         if (slot == null || slot.container != containerScreen.getMinecraft().player.getInventory()) return false;
 
         int order = getOrderIndexForSlot(slot.getContainerSlot());

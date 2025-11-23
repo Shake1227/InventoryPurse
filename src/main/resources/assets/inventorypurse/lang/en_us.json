@@ -1,10 +1,14 @@
 {
-  "item.inventorypurse.inventory_purse": "Inventory Purse",
-  "item.inventorypurse.red_inventory_purse": "Red Purse",
-  "item.inventorypurse.black_inventory_purse": "Black Purse",
-  "item.inventorypurse.white_inventory_purse": "White Inventory Purse",
+  "item.inventorypurse.drawstring_bag": "Drawstring Bag",
+  "item.inventorypurse.red_drawstring_bag": "Red Drawstring Bag",
+  "item.inventorypurse.black_drawstring_bag": "Black Drawstring Bag",
+  "item.inventorypurse.white_drawstring_bag": "White Drawstring Bag",
   "creativetab.inventorypurse_tab": "Purse",
   "commands.inventorypurse.lock.enabled": "Inventory lock has been re-enabled.",
   "commands.inventorypurse.lock.disabled": "Inventory lock has been disabled for you.",
-  "config.inventorypurse.title": "Inventory Purse Settings"
+  "config.inventorypurse.title": "Inventory Purse Settings",
+  "inventorypurse.notify.expanded.title": "Inventory Expanded",
+  "inventorypurse.notify.expanded.message": "Inventory slots expanded (%1$s -> %2$s)",
+  "inventorypurse.notify.reduced.title": "Inventory Reduced",
+  "inventorypurse.notify.reduced.message": "Inventory slots reduced (%1$s -> %2$s)"
 }

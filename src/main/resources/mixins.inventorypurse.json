@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "shake1227.inventorypurse.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.inventorypurse.refmap.json",
+  "mixins": [
+    "MixinSlot"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

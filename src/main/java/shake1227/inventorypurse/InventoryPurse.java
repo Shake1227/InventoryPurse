@@ -10,6 +10,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import shake1227.inventorypurse.common.registry.ModCommands;
+import shake1227.inventorypurse.common.registry.ModCreativeTabs;
 import shake1227.inventorypurse.common.registry.ModItems;
 import shake1227.inventorypurse.core.config.ServerConfig;
 import shake1227.inventorypurse.core.event.PlayerEventHandler;
@@ -20,11 +21,11 @@ public class InventoryPurse {
     public static final String MOD_ID = "inventorypurse";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    @SuppressWarnings("removal")
     public InventoryPurse() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
+        ModCreativeTabs.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());

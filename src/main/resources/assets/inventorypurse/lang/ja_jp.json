@@ -1,10 +1,14 @@
 {
-  "item.inventorypurse.inventory_purse": "巾着",
-  "item.inventorypurse.red_inventory_purse": "赤い巾着",
-  "item.inventorypurse.black_inventory_purse": "黒い巾着",
-  "item.inventorypurse.white_inventory_purse": "白い巾着",
+  "item.inventorypurse.drawstring_bag": "巾着",
+  "item.inventorypurse.red_drawstring_bag": "赤い巾着",
+  "item.inventorypurse.black_drawstring_bag": "黒い巾着",
+  "item.inventorypurse.white_drawstring_bag": "白い巾着",
   "creativetab.inventorypurse_tab": "巾着",
   "commands.inventorypurse.lock.enabled": "インベントリロックが再度有効になりました。",
   "commands.inventorypurse.lock.disabled": "あなたのインベントリロックは無効になりました。",
-  "config.inventorypurse.title": "インベントリ巾着 設定"
+  "config.inventorypurse.title": "インベントリ巾着 設定",
+  "inventorypurse.notify.expanded.title": "インベントリ拡張",
+  "inventorypurse.notify.expanded.message": "インベントリが拡張されました (%1$s個 -> %2$s個)",
+  "inventorypurse.notify.reduced.title": "インベントリ縮小",
+  "inventorypurse.notify.reduced.message": "インベントリが縮小しました (%1$s個 -> %2$s個)"
 }

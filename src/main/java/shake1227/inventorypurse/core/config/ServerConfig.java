@@ -9,6 +9,8 @@ public class ServerConfig {
 
     public static final ForgeConfigSpec.IntValue BASE_SLOTS;
 
+    public static final ForgeConfigSpec.BooleanValue SHOW_NOTIFICATIONS;
+
     public static final ForgeConfigSpec.IntValue PURSE_SLOTS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> PURSE_ACTIVATION;
 
@@ -27,6 +29,9 @@ public class ServerConfig {
         BASE_SLOTS = BUILDER
                 .comment("Number of inventory slots accessible by default (0-35). Slots are counted from the top-left of the main inventory (excluding hotbar). 0 means none, 9 is the first row, 36 includes hotbar and main inventory.")
                 .defineInRange("baseAccessibleSlots", 9, 0, 36);
+        SHOW_NOTIFICATIONS = BUILDER
+                .comment("If true, sends a notification when inventory slots change.")
+                .define("showNotifications", true);
 
         BUILDER.pop();
 

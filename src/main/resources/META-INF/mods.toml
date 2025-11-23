@@ -1,6 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
-license = "${mod_license}"
+license = "${mod_license}
+logoFile="inventorypurse_logo.png"
 
 [[mods]]
 modId = "${mod_id}"
@@ -8,7 +9,9 @@ version = "${mod_version}"
 displayName = "${mod_name}"
 displayURL = "https://x.com/Shake_1227"
 authors = "${mod_authors}"
-description = '''${mod_description}'''
+description = '''This mod limits the player's usable inventory and adds items that expand the inventory.
+
+Texture Designer: Chore(@chore_3)'''
 
 [[dependencies."${mod_id}"]]
 modId = "forge"

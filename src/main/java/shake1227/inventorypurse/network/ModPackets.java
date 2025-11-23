@@ -8,7 +8,6 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import shake1227.inventorypurse.InventoryPurse;
 import shake1227.inventorypurse.network.client.ClientLockData;
-import shake1227.inventorypurse.network.server.ServerShiftRightClickPacket;
 
 public class ModPackets {
     private static SimpleChannel INSTANCE;
@@ -28,19 +27,10 @@ public class ModPackets {
                 .simpleChannel();
 
         INSTANCE = net;
-
-        // Server -> Client
         net.messageBuilder(ClientLockData.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ClientLockData::new)
                 .encoder(ClientLockData::toBytes)
                 .consumerMainThread(ClientLockData::handle)
-                .add();
-
-        // Client -> Server
-        net.messageBuilder(ServerShiftRightClickPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ServerShiftRightClickPacket::new)
-                .encoder(ServerShiftRightClickPacket::toBytes)
-                .consumerMainThread(ServerShiftRightClickPacket::handle)
                 .add();
     }
 

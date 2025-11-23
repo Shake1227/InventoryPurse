@@ -15,13 +15,13 @@ import shake1227.inventorypurse.InventoryPurse;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, InventoryPurse.MOD_ID);
 
-    public static final RegistryObject<Item> INVENTORY_PURSE = ITEMS.register("inventory_purse",
+    public static final RegistryObject<Item> DRAWSTRING_BAG = ITEMS.register("drawstring_bag",
             () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> RED_INVENTORY_PURSE = ITEMS.register("red_inventory_purse",
+    public static final RegistryObject<Item> RED_DRAWSTRING_BAG = ITEMS.register("red_drawstring_bag",
             () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> BLACK_INVENTORY_PURSE = ITEMS.register("black_inventory_purse",
+    public static final RegistryObject<Item> BLACK_DRAWSTRING_BAG = ITEMS.register("black_drawstring_bag",
             () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> WHITE_INVENTORY_PURSE = ITEMS.register("white_inventory_purse",
+    public static final RegistryObject<Item> WHITE_DRAWSTRING_BAG = ITEMS.register("white_drawstring_bag",
             () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
@@ -31,10 +31,10 @@ public class ModItems {
     @SubscribeEvent
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(INVENTORY_PURSE);
-            event.accept(RED_INVENTORY_PURSE);
-            event.accept(BLACK_INVENTORY_PURSE);
-            event.accept(WHITE_INVENTORY_PURSE);
+            event.accept(DRAWSTRING_BAG);
+            event.accept(RED_DRAWSTRING_BAG);
+            event.accept(BLACK_DRAWSTRING_BAG);
+            event.accept(WHITE_DRAWSTRING_BAG);
         }
     }
 }

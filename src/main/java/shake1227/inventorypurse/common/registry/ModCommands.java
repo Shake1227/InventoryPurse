@@ -39,7 +39,6 @@ public class ModCommands {
                                                 PlayerEventHandler.removeBypassPlayer(uuid);
                                                 context.getSource().sendSuccess(() -> Component.literal("Bypass disabled."), true);
                                             }
-                                            // PlayerTickイベントで状態が更新されるため、ここでの即時更新は不要
                                             return 1;
                                         })
                                 )

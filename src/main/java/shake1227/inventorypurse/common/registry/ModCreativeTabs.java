@@ -15,13 +15,13 @@ public class ModCreativeTabs {
 
     public static final RegistryObject<CreativeModeTab> INVENTORYPURSE_TAB = CREATIVE_MODE_TABS.register("inventorypurse_tab",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(ModItems.INVENTORY_PURSE.get()))
+                    .icon(() -> new ItemStack(ModItems.DRAWSTRING_BAG.get()))
                     .title(Component.translatable("creativetab.inventorypurse_tab"))
                     .displayItems((pParameters, pOutput) -> {
-                        pOutput.accept(ModItems.INVENTORY_PURSE.get());
-                        pOutput.accept(ModItems.RED_INVENTORY_PURSE.get());
-                        pOutput.accept(ModItems.BLACK_INVENTORY_PURSE.get());
-                        pOutput.accept(ModItems.WHITE_INVENTORY_PURSE.get());
+                        pOutput.accept(ModItems.DRAWSTRING_BAG.get());
+                        pOutput.accept(ModItems.RED_DRAWSTRING_BAG.get());
+                        pOutput.accept(ModItems.BLACK_DRAWSTRING_BAG.get());
+                        pOutput.accept(ModItems.WHITE_DRAWSTRING_BAG.get());
                     })
                     .build());
 
